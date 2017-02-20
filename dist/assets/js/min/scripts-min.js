@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){const e=document.querySelector("#c-page-title"),t=document.querySelector("#c-byline"),n=document.querySelector("#c-head-image"),o=document.querySelector("#main");var c=o.getBoundingClientRect(),d=c.top;document.addEventListener("scroll",function(){console.log(c),300>d&&e.classList.add("faded")})},!1);
