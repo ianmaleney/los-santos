@@ -86,7 +86,7 @@ header
 
 #main
 	background-color: rgba($navy, 0.9)
-	margin-top: 100vh
+	margin: 100vh 0
 	z-index: 1
 	border-top: 1px solid $light-blue
 	padding: 80px 0
@@ -103,3 +103,18 @@ header
 	&:hover
 		color: $pink
 		cursor: pointer
+
+.floating-tag
+	position: fixed
+	top: 10vh
+	left: 10vw
+	max-width: 40vw
+	color: $pink
+	display: flex
+	flex-direction: column
+	opacity: 1
+	transition: opacity 0.8s ease-in-out, color 0.7s ease-in-out
+
+.floating-tag.faded
+	opacity: 0.1
+	color: $light-blue
