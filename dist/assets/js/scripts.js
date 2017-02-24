@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	var fn = document.querySelectorAll(".c-footnote-number");
 	var fnIndex = document.querySelectorAll(".c-footnote-index");
+	var fnFloat = document.querySelector(".floating-fn");
+	var fnOverlay = document.querySelector(".overlay");
+	var fnShow = document.querySelector(".c-see-more");
 	
 	var div = Math.floor( bodyBottom / hashtags.length );
 
@@ -47,20 +50,41 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		if (scrolled > div * i) {
-				var floatSpan = document.createElement("span");
+				var floatSpan = document.createElement("a");
 				var textNode = document.createTextNode( hashtags[i - 1].innerHTML );
+				var text = hashtags[i - 1].innerHTML;
+				var clean = text.replace(/[|&;$%@#"<>()+,]/g, "");
+				floatSpan.target = "_blank";
+				floatSpan.href = "https://www.instagram.com/explore/tags/"+ clean + "/";
 				floatSpan.appendChild(textNode);
 				float.appendChild(floatSpan);
 				i++;
 		}
 	});
 
-	for (var i = 0; i < fn.length; i++) {
-		fn[i].addEventListener("click", function(){
-			alert(i);
+	fn.forEach(function(element, index) {
+		element.addEventListener("click", function(){
+    	fnFloat.innerHTML = fnIndex[index].innerHTML;
+			fnFloat.classList.toggle("visible");
+			fnOverlay.classList.toggle("visible");
 		});
-	}
+	});
 
+	fnOverlay.addEventListener("click", function(){
+		fnFloat.classList.toggle("visible");
+		fnOverlay.classList.toggle("visible");
+	});
+
+	fnFloat.addEventListener("click", function(){
+		fnFloat.classList.toggle("visible");
+		fnOverlay.classList.toggle("visible");
+	});
+
+	fnShow.addEventListener("click", function(){
+		fnIndex.forEach(function(element, index){
+			element.classList.toggle("visible");
+		});
+	});
 	
 
 }, false);

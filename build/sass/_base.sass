@@ -1,5 +1,6 @@
 $serif: 'Gentium Book Basic', Palatino, serif
-$sans: 'Helvetica Neue', Arial
+$sans: 'Helvetica Neue', Arial, sans-serif
+$display: 'Helvetica LT UltraCompressed', 'Roboto Condensed'
 
 $light-blue: #93c5e4
 $blue: #0952d1
@@ -7,6 +8,12 @@ $dark-blue: #152d50
 $navy: #1d243d
 $red: #e9152e
 $pink: #ff7b7b
+
+@keyframes tagline
+	0%
+		left: 100%
+	100%
+		left: -420%
 
 *, *:before, *:after
 	box-sizing: border-box
@@ -29,6 +36,8 @@ body
 		max-width: 650px
 		margin: 20px auto
 		color: white
+		@media (max-width: 690px)
+			max-width: 94vw
 	a 
 		color: $light-blue
 		&:hover
@@ -58,8 +67,16 @@ header
 	#c-page-title
 		color: rgba($pink, 0.9)
 		font-size: 8rem
-		font-family: 'Helvetica LT UltraCompressed'
+		font-family: $display, $sans
 		transition: opacity 0.8s ease-in-out
+		@media (max-width: 1190px)
+			font-size: 5rem
+			line-height: 6.25rem
+		@media (max-width: 690px)
+			font-size: 2.8rem
+			line-height: 4rem
+			color: darken($pink,2%)
+			letter-spacing: -0.2px
 	#c-page-title.faded
 		opacity: 0
 
@@ -68,8 +85,16 @@ header
 		color: rgba($pink, 0.9)
 		font-size: 2rem
 		letter-spacing: 1px
-		font-family: 'Helvetica LT UltraCompressed'
+		font-family: $display, $sans
 		transition: opacity 0.8s ease-in-out
+		@media (max-width: 1190px)
+			font-size: 2.1rem
+		@media (max-width: 690px)
+			font-size: 1.3rem
+			line-height: 2.3rem
+			font-weight: bold
+			color: darken($pink,2%)
+		
 	#c-byline.faded
 		opacity: 0
 	#c-byline:before, #c-byline:after
@@ -86,15 +111,38 @@ header
 
 #main
 	background-color: rgba($navy, 0.9)
-	margin: 100vh 0
+	margin: 100vh 0 0
 	z-index: 1
 	border-top: 1px solid $light-blue
 	padding: 80px 0
 	background-blend-mode: overlay
 
 #footnotes
-	background-color: rgba($navy, 0.9)
-	margin: 0 0
+	border-top: 1px solid $light-blue
+	margin: 50px auto 0
+	max-width: 650px
+	@media(max-width: 690px)
+		max-width: 94vw
+	.c-see-more
+		display: inline-block
+		margin: 20px 0
+		text-align: center
+		border-bottom: 1px solid $light-blue
+		&:hover
+			color: $light-blue
+			cursor: pointer
+	.c-footnote-index
+		visibility: hidden
+		height: 0
+		transform: scale(0)
+		transform-origin: top left
+		opacity: 0
+		transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out
+	.c-footnote-index.visible
+		visibility: visible
+		height: auto
+		opacity: 1
+		transform: scale(1)
 
 .c-footnote-number
 	color: $light-blue
@@ -109,12 +157,90 @@ header
 	top: 10vh
 	left: 10vw
 	max-width: 40vw
-	color: $pink
 	display: flex
 	flex-direction: column
 	opacity: 1
 	transition: opacity 0.8s ease-in-out, color 0.7s ease-in-out
+	a 
+		color: $pink
+		text-decoration: none
+		transition: color 0.7s ease-in-out
+		&:hover
+			color: $light-blue
+	@media (max-width: 1190px)
+		flex-direction: row
+		left: 100%
+		animation: tagline 10s infinite
+		animation-timing-function: linear
+		font-family: $display, $sans
+		a 
+			margin: 0 3px
+		
 
 .floating-tag.faded
 	opacity: 0.1
-	color: $light-blue
+	a
+		color: $light-blue
+
+.floating-fn
+	position: fixed
+	height: auto
+	top: calc(50vh - 150px)
+	width: 100vw
+	left: 0
+	text-align: center
+	padding: 20px 10vw
+	border-top: 1px solid $light-blue
+	border-bottom: 1px solid $light-blue
+	color: white
+	background-color: rgba($navy, 0.9)
+	padding: 15px
+	z-index: 10
+	pointer-events: none
+	opacity: 0
+	transition: opacity 0.35s ease-in-out
+	@media (max-width: 690px)
+		padding: 20px 15px
+
+		
+.floating-fn.visible
+	opacity: 1
+	pointer-events: auto
+
+.overlay
+	background-color: rgba(0,0,0,0.5)
+	position: fixed
+	width: 100vw
+	height: 100vh
+	top: 0
+	left: 0
+	opacity: 0
+	z-index: 9
+	pointer-events: none
+	transition: opacity 0.35s ease-in-out
+.overlay.visible
+	opacity: 1
+	pointer-events: auto
+
+.fallow-cta
+	display: flex
+	flex-direction: column
+	max-width: 650px
+	margin: 0 auto
+	border-top: 1px solid $light-blue
+	padding: 50px 0
+	@media(max-width: 690px)
+		max-width: 94vw
+	logo
+		margin: 0 auto
+	svg
+		max-width: 180px
+		max-height: 180px
+		margin-left: calc(50% - 90px)
+		line, rect
+			stroke: $pink
+		&:hover
+			line, rect
+				stroke: $light-blue
+	.text
+		padding-top: 20px
