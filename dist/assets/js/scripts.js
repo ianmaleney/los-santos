@@ -85,6 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			element.classList.toggle("visible");
 		});
 	});
-	
+
+  var el = document.getElementById('c-page-title');
+  var elHeight = el.offsetHeight;
+
+	if (elHeight > 162){
+		el.classList.add('roboto');
+	}
 
 }, false);
